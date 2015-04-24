@@ -1,30 +1,41 @@
 
-	angular.module('ToDoApp',[]).
-	controller('TodoController', function(){
-		var todoList = this;
+	angular.module('ToDoApp',[]).controller('TodoController',['$scope', function($scope){
+		
+		
 
-		todoList.todo = [
-			//{'title':'', done: false}
-		]; //start with empty array so as not to start with a lost checkbox
 
-		todoList.addTodo = function () {
-			todoList.todo.push({title: todoList.newTodo, done: false});
-				todoList.newTodo = '';
-				};//close addTodo function 
+		$scope.todo = [
+			{'title':'Build a To Do App', done: false}//start with empty array so as not to start with a lost checkbox
+			//if(!angular.isObject(todo.title) todo=[];
+		]; 
 
-		todoList.remaining = function() {
+		//emptyTodo = function () {  //hides checkbox but still counts as one todo
+
+		//angular.isObject(todo.title) todo=[];
+		//}
+
+
+
+		$scope.addTodo = function () {
+			$scope.todo.push({title: $scope.newTodo, done: false});
+				$scope.newTodo = '';
+				//LocalStorage.setItem('todo', JSON.stringify(todo));
+				}//close addTodo function 
+
+		$scope.remaining = function() {
 			var count = 0;
-			angular.forEach(todoList.todo, function(currentTodo){  //angular.forEach iterator function 
+			angular.forEach($scope.todo, function(currentTodo){  //angular.forEach iterator function 
 				count += currentTodo.done ? 0 : 1;  
 			});
 			return count;
-		};
+		}
 
-		todoList.hideDone = function () {
-			var oldTodo = todoList.todo;
-			todoList.todo = [];//creat empty array
+		$scope.hideDone = function () {
+			var oldTodo = $scope.todo;
+			$scope.todo = [];//creat empty array
 			angular.forEach(oldTodo, function(currentTodo){
-				if (!currentTodo.done) todoList.todo.push(currentTodo);// create array of  undone todos from original array
+				if (!currentTodo.done) $scope.todo.push(currentTodo);// create array of  undone todos from original array
 			});
-		};
-});
+			//LocalStorage.setItem('todo', JSON.stringify(todo));
+		}
+}])

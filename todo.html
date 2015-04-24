@@ -5,6 +5,7 @@
 	 <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="angular.js"></script>
+    <script src="ngStorage.js"></script>
 	<script src="todo.js"></script>
 	<title>Much ToDo About Nothing</title>
 
@@ -16,23 +17,26 @@
 </head>
 <body>
 
-<div class="container" data-ng-controller="TodoController as todoList" ng-cloak>
+<div class="container" data-ng-controller="TodoController" ng-cloak>
 
 
 
-<h2><ng-pluralize count="todoList.remaining()" when="{ 0: 'Anything to do?', 1: ' just one thing to do', other: '{} things to do' }"></ng-pluralize></h2>
+<h2><ng-pluralize count="remaining()" when="{ 0: 'Anything to do?', 1: ' just one thing to do', other: '{} things to do' }"></ng-pluralize></h2>
 
 
-	<input type="text" data-ng-model="todoList.newTodo" required/>
+	<input type="text" data-ng-model="newTodo" required/>
 	
-	<button data-ng-click="todoList.addTodo()">Add To List</button>
+	<button data-ng-click="addTodo()">Add To List</button>
 	 
 	<ul>
-		<li data-ng-repeat="currentTodo in todoList.todo">			
+		<li data-ng-repeat="currentTodo in todo">			
 			<input type="checkbox" data-ng-model="currentTodo.done"/>{{currentTodo.title}}
 	    </li>		
+	    	
 	</ul>
- <a href="" ng-click="todoList.hideDone()">Hide Done</a>
+ <a href="" ng-click="hideDone()">Hide Done</a>
+
+ 
 	
 						
 </div>
