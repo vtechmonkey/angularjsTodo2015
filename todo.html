@@ -9,7 +9,10 @@
 	<script src="todo.js"></script>
 	<title>Much ToDo About Nothing</title>
 
-    <!-- code reused/adapted from example on angularjs.org -->
+    <!-- code reused/adapted from
+    	example on angularjs.org 
+    	http://steinbring.net/2014/angularjs-exploring-ng-options-ng-model-and-the-ngstorage-module/
+    	http://stackoverflow.com/questions/16884544/javascript-splice-function-inside-foreach-loop-decrements-index-->
 
     
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
@@ -22,19 +25,20 @@
 
 
 <h2><ng-pluralize count="remaining()" when="{ 0: 'Anything to do?', 1: ' just one thing to do', other: '{} things to do' }"></ng-pluralize></h2>
-
+	<form>
 
 	<input type="text" data-ng-model="newTodo" required/>
 	
 	<button data-ng-click="addTodo()">Add To List</button>
+	</form>
 	 
 	<ul>
-		<li data-ng-repeat="currentTodo in todo">			
+		<li data-ng-repeat="currentTodo in $storage.todo">			
 			<input type="checkbox" data-ng-model="currentTodo.done"/>{{currentTodo.title}}
 	    </li>		
 	    	
 	</ul>
- <a href="" ng-click="hideDone()">Hide Done</a>
+ <a href="" ng-click="deleteDone()">Delete forEvahh!</a>
 
  
 	
