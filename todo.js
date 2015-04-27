@@ -1,5 +1,5 @@
 
-	angular.module('ToDoApp',['ngStorage']).controller('TodoController',['$scope', '$localStorage', function($scope, $localStorage){
+	angular.module('ToDoApp',['ngStorage', 'ngMessages']).controller('TodoController',['$scope', '$localStorage', function($scope, $localStorage){
 		
 		
 
@@ -19,8 +19,9 @@
 
 
 		$scope.addTodo = function () {
-			$scope.$storage.todo.push({title: $scope.newTodo, done: false});
+			$scope.$storage.todo.push({title: $scope.newTodo, done: false, importance:$scope.currentTodo.importance});
 				$scope.newTodo = '';
+				
 				
 				}//close addTodo function 
 

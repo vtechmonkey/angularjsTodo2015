@@ -4,15 +4,18 @@
 	<meta charset="UTF-8">
 	 <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="angular.js"></script>
-    <script src="ngStorage.js"></script>
-	<script src="todo.js"></script>
+    <script type="text/javascript" src="angular.js"></script>
+    <script type="text/javascript" src="ngStorage.js"></script><!-- included angularjs ngStorage module that makes local storage simple to use-->
+    <script type="text/javascript" src="angular-messages.js"></script>
+	<script type="text/javascript" src="todo.js"></script>
 	<title>Much ToDo About Nothing</title>
 
     <!-- code reused/adapted from
     	example on angularjs.org 
+    	https://www.youtube.com/watch?v=FSOiVprDdj0 (John Maddalone Create a ToDo app)
     	http://steinbring.net/2014/angularjs-exploring-ng-options-ng-model-and-the-ngstorage-module/
-    	http://stackoverflow.com/questions/16884544/javascript-splice-function-inside-foreach-loop-decrements-index-->
+    	http://stackoverflow.com/questions/16884544/javascript-splice-function-inside-foreach-loop-decrements-index
+    	http://www.yearofmoo.com/2014/09/taming-forms-in-angularjs-1-3.html-->
 
     
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
@@ -20,25 +23,41 @@
 </head>
 <body>
 
-<div class="container" data-ng-controller="TodoController" ng-cloak>
+<div class="container" data-ng-controller="TodoController" ng-cloak><!--ng-cloak hides the flash of javascript when the page loads -->
 
 
 
-<h2><ng-pluralize count="remaining()" when="{ 0: 'Anything to do?', 1: ' just one thing to do', other: '{} things to do' }"></ng-pluralize></h2>
-	<form>
+	<h2>
+		<ng-pluralize count="remaining()" when="{ 0: 'Anything to do?', 1: ' just one thing to do', other: '{} things to do' }"></ng-pluralize>
+	</h2>
 
-	<input type="text" data-ng-model="newTodo" required/>
-	
-	<button data-ng-click="addTodo()">Add To List</button>
+	<form name="todoForm" novalidate >
+
+
+		<!--<div ng-messages="todoForm.new.$error" ng-if="todoForm.$submitted"><div ng-message="required">Add Your Item Below...</div></div><!--message appears until valid input is entered-->	
+
+		<input type="text" name="new" placeholder="start typing..." autofocus data-ng-model="newTodo" required=""/>
+
+		
+			
+			<input type="radio" ng-model="currentTodo.importance" value="very">Very</input>
+			<input type="radio" ng-model="currentTodo.importance"value="quite">Quite</input>
+			<input type="radio" ng-model="currentTodo.importance"value="meh">Meh</input>
+		
+  
+
+		<button input type="submit" ng-click="addTodo()" data-ng-disabled="todoForm.$invalid" >Add To List</button><!--disables form if form not valid-->
+ 
 	</form>
+	<!--data-ng-disabled="todoForm.$invalid"-->
 	 
 	<ul>
 		<li data-ng-repeat="currentTodo in $storage.todo">			
-			<input type="checkbox" data-ng-model="currentTodo.done"/>{{currentTodo.title}}
+			<input type="checkbox" data-ng-model="currentTodo.done"/>{{currentTodo.title}}. This Item is {{currentTodo.importance}} important.
 	    </li>		
 	    	
 	</ul>
- <a href="" ng-click="deleteDone()">Delete forEvahh!</a>
+ <a href="" ng-click="deleteDone()">Delete Completed <br/>for Evahh!</a>
 
  
 	
