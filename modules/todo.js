@@ -19,11 +19,14 @@
 
 
 		$scope.addTodo = function () {
+
 			$scope.$storage.todo.push({title: $scope.newTodo, done: false, importance:$scope.currentTodo.importance});
 				$scope.newTodo = '';
-				
-				
+				$scope.currentTodo.importance ='';	
+			$scope.todoForm.new.$setPristine();		
+			$scope.todoForm.new.$setUntouched();		
 				}//close addTodo function 
+
 
 		$scope.remaining = function() {
 			var count = 0;
@@ -34,11 +37,6 @@
 		}
 
 		
-
-
-
-	
-
 		$scope.deleteDone = function () {
 			var i = $scope.$storage.todo.length;
 			while (i--) {
@@ -49,4 +47,6 @@
 		}	
 
 
+
+    	
 }])
