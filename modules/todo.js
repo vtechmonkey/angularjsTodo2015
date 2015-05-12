@@ -1,5 +1,28 @@
 
-	angular.module('ToDoApp',['ngStorage', 'ngMessages']).controller('TodoController',['$scope', '$localStorage', function($scope, $localStorage){
+	var ToDoApp = angular.module('ToDoApp',['ngStorage', 'ngMessages', 'ngRoute','todoListControllers']);
+
+
+	ToDoApp.config(['$routeProvider',
+		function($routeProvider) {
+			$routeProvider.
+			when('/home', { 
+				templateUrl: 'partials/basic-template.html',
+				controller: 'FAQcontroller'
+			}).
+			when('/faq', { 
+				templateUrl: 'partials/FaqLocalStorage.html',
+				controller: 'FAQcontroller'
+			}).
+			otherwise({
+			redirectTo: '/home'
+			});
+		}]);
+
+
+
+	var todoListControllers = angular.module('todoListControllers', []);
+
+	todoListControllers.controller('TodoController',['$scope', '$localStorage', function($scope, $localStorage){
 		
 		
 
@@ -47,6 +70,14 @@
 		}	
 
 
+}]);
 
-    	
-}])
+
+todoListControllers.controller('FAQcontroller',['$scope', function($scope){
+
+	function FAQcontroller($scope) {
+
+	$scope.title="question about local storage";
+	$scope.body ="answer to question";
+}
+}]);
